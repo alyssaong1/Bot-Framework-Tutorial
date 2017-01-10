@@ -12,3 +12,4 @@ Want to build a Messenger Bot but not sure where to start? This hands-on guide s
 
 Please go through SETUP.md first, followed by BUILDIT.md and lastly CONNECT.md.
 
+The full finished code is available [here](https://github.com/alyssaong1/NodeNewsBot).
