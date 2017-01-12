@@ -1,219 +1,78 @@
-#Building our Bot
+#Setting up the bot with Microsoft Bot Framework
 
-The bot we made in Mission 1 is currently not very smart. In this part, we'll be building out the logic of our bot so it actually starts being useful and gives us news. 
+This part has been largely based off the setup documented by Microsoft [here](https://docs.botframework.com/en-us/node/builder/overview/#navtitle), but I've added a bit more detail. 
 
-##Mission 2: Get News
+####First of all, go and install these:
+- [NodeJS](https://nodejs.org/en/). After you've installed this, open your command line and run `npm install npm -g`. This updates Node's Package Manager (npm) to the latest version.
+- [Visual Studio Code](https://code.visualstudio.com/) (or any other code editor of your choice)
 
-We're moving on to more complex stuff now. Let's try fetching top news based on category so we can stay updated with civilisation.
+Make a new folder for your bot. All your bot's code will be stored in this folder. Next, open up your command prompt and navigate to your bot's folder using cd. Refer to [this link](http://www.wikihow.com/Change-Directories-in-Command-Prompt) if you're not sure how to do this. Mine ends up looking something like this:
 
-**But what are we using to get the news?**
+<insert img>
 
-We're gonna go to CNN and copy paste the headlines manually into our bot. Just kidding. We'll be using the [Bing News API](https://www.microsoft.com/cognitive-services/en-us/bing-news-search-api). We can use it to get top news by categories, search the news, and get trending topics. I highly suggest briefly looking through the following links to familiarise yourself with the API:
+Now run `npm init` to start your nodejs project. They'll fill in some fields for you by default, you can keep pressing enter. You can enter the description for your bot and author name (as I have done) if you'd like, but it's ok to leave them blank too. 
 
-- [Endpoints and examples of requests and responses](https://msdn.microsoft.com/en-us/library/dn760783.aspx)
-- [Parameters for requests](https://msdn.microsoft.com/en-us/library/dn760793(v=bsynd.50).aspx)
+<insert img>
 
-To start using the Bing News API, we will need a subscription key. We can get one in a similar manner as how we got our LUIS subscription key. Go to the [Azure portal](https://portal.azure.com) and log in. Then click + New and search for Cognitive Services. Create a new Cognitive Services API instance, and make sure you select . 
-
-Now that you have your subscription key (you can use either key 1 or key 2, it doesn't matter), you can go to the [API testing console](https://dev.cognitive.microsoft.com/docs/services/56b43f72cf5ff8098cef380a/operations/56f02400dbe2d91900c68553) and play around with the API if you'd like. Try sending some requests and see the responses you get. [Here](https://msdn.microsoft.com/en-us/library/dn760793(v=bsynd.50).aspx#categoriesbymarket) are all the possible categories for Category News by the way. 
-
-**Ok cool, now how do we link the news to the bot?**
-
-Let's start off by getting the bot to understand us when we type 'top news'. Modify the intentsDialog.matches line to this:
-
-```js
-intentDialog.matches(/\b(hi|hello|hey|howdy)\b/i, '/sayHi')
-    .matches(/\b(help)\b/i, '/help')
-    .matches(/\b(menu)\b/i, '/menu')
-    .matches(/\b(top news)\b/i, '/topNews')
-    .onDefault(builder.DialogAction.send("Sorry, I didn't understand what you said."));
-```
-
-Then add this snippet of code at the end to create a dialog for top news:
-
-```js
-bot.dialog('/topNews', [
-    function (session){
-        // Ask the user which category they would like
-        // Choices are separated by |
-        builder.Prompts.choice(session, "Which category would you like?", "Technology|Science|Sports|Business|Entertainment|Politics|Health|World|(quit)");
-    }, function (session, results){
-        var userResponse = results.response.entity;
-        session.endDialog("You selected: " + userResponse);
-    }
-]);
-```
-
-**Not 1... But 2 functions in a dialog!?**
-
-Yup. It's natural for a dialog to go back and forth, and so BotBuilder allows us the flexibility to have dialogs with multiple steps. This is called a [Waterfall](https://docs.botframework.com/en-us/node/builder/chat/dialogs/#waterfall). In this case, we use a [Prompt](https://docs.botframework.com/en-us/node/builder/chat/prompts) to present some choices to the user. Once the user selects a choice, we advance to the next step of the waterfall. The user's response from the previous step is also passed on. Run it and give it a go.
-
-Let's go ahead and change the logic in the second step of the waterfall. Modify '/topNews' to the following:
-
-```js
-bot.dialog('/topNews', [
-    function (session){
-        // Ask the user which category they would like
-        // Choices are separated by |
-        builder.Prompts.choice(session, "Which category would you like?", "Technology|Science|Sports|Business|Entertainment|Politics|Health|World|(quit)");
-    }, function (session, results){
-        if (results.response && results.response.entity !== '(quit)') {
-            //Show user that we're processing their request by sending the typing indicator
-            session.sendTyping();
-            // Build the url we'll be calling to get top news
-            var url = "https://api.cognitive.microsoft.com/bing/v5.0/news/?" 
-                + "category=" + results.response.entity + "&count=10&mkt=en-US&originalImg=true";
-            session.endDialog("Url built.");
-        } else {
-            session.endDialog("Ok. Mission Aborted.");
-        }
-    }
-]);
-```
-
-Here, we've handled if the user decides to quit the prompt. In terms of the url's parameters, we've only used a few parameters, but you can see a list of all parameters [here](https://msdn.microsoft.com/en-us/library/dn760793(v=bsynd.50).aspx#Anchor_2). Here is a brief explanation of the paramters we've used:
-
-- **category** = the category we want news about.
-- **count** = the number of news articles we want the API to return. I highly recommend returning 10 as 10 is the maximum number of cards that Messenger allows you to display at once.
-- **mkt** = the language/country we want news from (only UK and US available at the moment).
-- **originalImg** = whether we want the API to return the original image url with the article. I highly recommend setting this to true, otherwise the API returns thumbnails instead which translates to very low image quality.
-
-**How do we make the actual API call?**
-
-Not with a cellphone. We'll be using a Node package called [request-promise](https://www.npmjs.com/package/request-promise). Have a read of their [documentation](https://github.com/request/request-promise) and see how it is used to make API calls. Install the package by running the following command into the command prompt:
+If you check your bot's folder now, there should be a package.json file. [package.json](https://docs.npmjs.com/files/package.json) is like a description of the project, such as which packages our node project uses. It does other useful stuff too that we don't need for this tutorial. Now run the following 2 commands separately in the command line to install the botbuilder and restify packages (each of the packages may take a while to finish installing):
 
 ```shell
-npm install --save request-promise
+npm install --save botbuilder
+npm install --save restify
 ```
 
-Now let's add a reference to request-promise into our bot. Add it to the top where we reference other modules, like this:
+Packages (or dependencies) are like parts/modules that others have written which we can use to build our bot. Microsoft's [BotBuilder](https://www.npmjs.com/package/botbuilder) is a framework we use to build our bot by handling stuff such as dialogs and storing info about the user. [Restify](https://www.npmjs.com/package/restify) exposes our bot through an API so that other web services can talk to it. The `--save` flag automatically updates the package.json file to show that BotBuilder and Restify are dependencies in our project.
+
+Open up Visual Studio Code. Go to File > Open Folder... and select your bot's folder. You should be able to see your file structure on the left panel, it'll look something like this:
+
+<insert img>
+
+ The node_modules folder contains all the packages needed in our project. If you look into the folder, you'll see more than just BotBuilder and Restify - that's because they require other packages to work as well. Right click the left panel area and create a new file. Name it 'app.js'. Your resulting folder structure should look like this:
+ 
+ Now copy and paste the following snippet of code into app.js:
 
 ```js
+// Reference the packages we require so that we can use them in creating the bot
 var restify = require('restify');
 var builder = require('botbuilder');
-var rp = require('request-promise');
+
+//=========================================================
+// Bot Setup
+//=========================================================
+
+// Setup Restify Server
+// Listen for any activity on port 3978 of our local server
+var server = restify.createServer();
+server.listen(process.env.port || process.env.PORT || 3978, function () {
+   console.log('%s listening to %s', server.name, server.url); 
+});
+  
+// Create chat bot
+var connector = new builder.ChatConnector({
+    appId: process.env.MICROSOFT_APP_ID,
+    appPassword: process.env.MICROSOFT_APP_PASSWORD
+});
+var bot = new builder.UniversalBot(connector);
+// If a Post request is made to /api/messages on port 3978 of our local server, then we pass it to the bot connector to handle
+server.post('/api/messages', connector.listen());
+
+//=========================================================
+// Bots Dialogs
+//=========================================================
+
+// This is called the root dialog. It is the first point of entry for any message the bot receives
+bot.dialog('/', function (session) {
+    // Send 'hello world' to the user
+    session.send("Hello World");
+});
 ```
 
-Under that, let's declare the Bing News Subscription Key which we will need to add in the header of the request:
+I've inserted comments to explain the code. At the moment, the bot sends "Hello World" to the user every time it receives a message. To talk to our bot, we will use the [Bot Framework Emulator](https://docs.botframework.com/en-us/tools/bot-framework-emulator/). Windows users can install it straight from [here](https://aka.ms/bf-bc-emulator). There's only a [command line emulator](https://docs.botframework.com/en-us/tools/bot-framework-emulator/#mac-and-linux-support-using-command-line-emulator) available for Mac and Linux users right now unfortunately.  
 
-```js
-...
-var rp = require('request-promise');
+Once you've installed the emulator, let's get talking to our bot. Go back to the command prompt and run `node app.js`. This basically runs the app.js file, which is the starting point of our bot. It may take a while to fire up, and it will look like this once it's done:  
 
-// Static variables that we can use anywhere in app.js
-var BINGNEWSKEY = '*****YOUR SUBSCRIPTION KEY GOES HERE*****';
-...
-```
+Open the Bot Framework Emulator. You should see some text fields at the top. Local Port should be 9000, Emulator Url should be http://localhost:9000/ and Bot Url should be http://localhost:3978/api/messages. Here, our emulator is sending Post requests from port 9000 of our local server, to /api/messages on port 3978 of our local server (use whatever port your server is using). Leave the Microsoft App Id and Microsoft App Password fields blank for now.
 
-Note that for security reasons it's generally not advisable to paste any keys, passwords or sensitive stuff in your code - for now we're just doing it for the sake of simplicity. You can use [environment variables](https://blogs.msdn.microsoft.com/stuartleeks/2015/08/10/azure-api-apps-configuration-with-environment-variables/) as a way to keep the sensitive stuff away from the code - I'll add an extra section later showing you how to do this. 
+Go ahead and type a message in the chatbox at the bottom and send it. The bot should respond 'Hello World' every time you send it a message. If you look back at the command line, you'll be able to see some info on what's being called. Note that if there are any errors, you'll be able to see the error in the command line as well which helps with debugging. Press `Ctrl + c` in the command line when you're done talking to the bot. 
 
-With that, we can start calling the API. Modify '/topNews' to the following:
-
-```js
-bot.dialog('/topnews', [
-    function (session){
-        // Ask the user which category they would like
-        // Choices are separated by |
-        builder.Prompts.choice(session, "Which category would you like?", "Technology|Science|Sports|Business|Entertainment|Politics|Health|World|(quit)");
-    }, function (session, results, next){
-        // The user chose a category
-        if (results.response && results.response.entity !== '(quit)') {
-           //Show user that we're processing their request by sending the typing indicator
-            session.sendTyping();
-            // Build the url we'll be calling to get top news
-            var url = "https://api.cognitive.microsoft.com/bing/v5.0/news/?" 
-                + "category=" + results.response.entity + "&count=10&mkt=en-US&originalImg=true";
-            // Build options for the request
-            var options = {
-                uri: url,
-                headers: {
-                    'Ocp-Apim-Subscription-Key': BINGNEWSKEY
-                },
-                json: true // Returns the response in json
-            }
-            //Make the call
-            rp(options).then(function (body){
-                // The request is successful
-                console.log(body); // Prints the body out to the console in json format
-                session.send("Managed to get your news.");
-            }).catch(function (err){
-                // An error occurred and the request failed
-                console.log(err.message);
-                session.send("Argh, something went wrong. :( Try again?");
-            }).finally(function () {
-                // This is executed at the end, regardless of whether the request is successful or not
-                session.endDialog();
-            });
-        } else {
-            // The user choses to quit
-            session.endDialog("Ok. Mission Aborted.");
-        }
-    }
-]);
-```
-
-If you run the bot now and choose a category, the API call is made and if you look at the command prompt, you should see the body of the response being printed. Have a look at it, and you'll find that all the articles are returned in the 'value' property of the body object. Let's now write a function that returns all the articles as a bunch of cards to the user. Add this function right below the topNews dialog - we'll call this function sendTopNews.
-
-```js
-bot.dialog('/topNews', [
-    ...
-]);
-// This function processes the results from the API call to category news and sends it as cards
-function sendTopNews(session, results, body){
-    session.send("Top news in " + results.response.entity + ": ");
-    //Show user that we're processing by sending the typing indicator
-    session.sendTyping();
-    // The value property in body contains an array of all the returned articles
-    var allArticles = body.value;
-    var cards = [];
-    // Iterate through all 10 articles returned by the API
-    for (var i = 0; i < 10; i++){
-        var article = allArticles[i];
-        // Create a card for the article and add it to the list of cards we want to send
-        cards.push(new builder.HeroCard(session)
-            .title(article.name)
-            .subtitle(article.datePublished)
-            .images([
-                //handle if thumbnail is empty
-                builder.CardImage.create(session, article.image.contentUrl)
-            ])
-            .buttons([
-                // Pressing this button opens a url to the actual article
-                builder.CardAction.openUrl(session, article.url, "Full article")
-            ]));
-    }
-    var msg = new builder.Message(session)
-        .textFormat(builder.TextFormat.xml)
-        .attachmentLayout(builder.AttachmentLayout.carousel)
-        .attachments(cards);
-    session.send(msg);
-}
-```
-
-We only invoke this function when the API call is successful. Modify the part in the '/topNews' dialog where the request is being made to the following:
-
-```js
-bot.dialog('/topNews', [
-
-    ...
-
-    //Make the call
-    rp(options).then(function (body){
-        // The request is successful
-        sendTopNews(session, results, body);
-    }).catch(function (err){
-        // An error occurred and the request failed
-        console.log(err.message);
-        session.send("Argh, something went wrong. :( Try again?");
-    }).finally(function () {
-        // This is executed at the end, regardless of whether the request is successful or not
-        session.endDialog();
-    });
-
-    ...
-
-]);
-```
-
-Do note that this bot renders the news results only for Facebook Messenger at the moment. Microsoft Bot Framework makes it easy to deploy your bot onto any platform, but you need to be aware that not all messaging platforms (e.g. Kik, Telegram) will support the same attachments (e.g. most of them support sending text and image messages, but not cards). While the logic is the same (i.e. the API calls you make will not change across the bots), you'd have to check which messaging platform the user's message is coming from, then handling how your response is sent based on that. I may do a tutorial for this in future. 
-
+Congratulations, you've finished Part 1! If you're keen beans to start building the bot's logic, then head on over to Part 2 now. If you want to connect the bot to Messenger first, you can do Part 3 first then do Part 2. 
