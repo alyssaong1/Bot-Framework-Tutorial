@@ -6,7 +6,9 @@ The bot we made in Mission 1 is currently not very smart. In this part, we'll be
 
 We're moving on to more complex stuff now. Let's try fetching top news based on category so we can stay updated with civilisation.
 
-**But what are we using to get the news?**
+**NOTE: We will be asking you questions at the end of this so do not just copy and paste without understanding what is going on.**
+
+**So what are we using to get the news?**
 
 We're gonna go to CNN and copy paste the headlines manually into our bot. Just kidding. We'll be using the [Bing News API](https://www.microsoft.com/cognitive-services/en-us/bing-news-search-api). We can use it to get top news by categories, search the news, and get trending topics. I highly suggest briefly looking through the following links to familiarise yourself with the API:
 
@@ -218,5 +220,5 @@ bot.dialog('/topNews', [
 ]);
 ```
 
-Do note that this bot renders the news results only for Facebook Messenger at the moment. Microsoft Bot Framework makes it easy to deploy your bot onto any platform, but you need to be aware that not all messaging platforms (e.g. Kik, Telegram) will support the same attachments (e.g. most of them support sending text and image messages, but not cards). While the logic is the same (i.e. the API calls you make will not change across the bots), you'd have to check which messaging platform the user's message is coming from, then handling how your response is sent based on that. I may do a tutorial for this in future. 
+Microsoft Bot Framework makes it easy to deploy your bot onto any platform, but you need to be aware that not all messaging platforms (e.g. Kik, Telegram) will support the same attachments (e.g. most of them support sending text and image messages, but not cards). While the logic is the same (i.e. the API calls you make will not change across the bots), you'd have to check which messaging platform the user's message is coming from, then handling how your response is sent based on that. I may do a tutorial for this in future. 
 
