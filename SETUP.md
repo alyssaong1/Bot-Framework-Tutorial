@@ -71,9 +71,7 @@ I've inserted comments to explain the code. At the moment, the bot sends "Hello 
 
 Once you've installed the emulator, let's get talking to our bot. Go back to the command prompt and run `node app.js`. This basically runs the app.js file, which is the starting point of our bot. It may take a while to fire up, and it will look like this once it's done:  
 
-Open the Bot Framework Emulator. You should see some text fields at the top. Local Port should be 9000, Emulator Url should be http://localhost:9000/ and Bot Url should be http://localhost:3978/api/messages. Here, our emulator is sending Post requests from port 9000 of our local server, to /api/messages on port 3978 of our local server. Leave the Microsoft App Id and Microsoft App Password fields blank for now.
-
-<image>
+Open the Bot Framework Emulator. You should see some text fields at the top. Local Port should be 9000, Emulator Url should be http://localhost:9000/ and Bot Url should be http://localhost:3978/api/messages. Here, our emulator is sending Post requests from port 9000 of our local server, to /api/messages on port 3978 of our local server (use whatever port your server is using). Leave the Microsoft App Id and Microsoft App Password fields blank for now.
 
 Go ahead and type a message in the chatbox at the bottom and send it. The bot should respond 'Hello World' every time you send it a message. If you look back at the command line, you'll be able to see some info on what's being called. Note that if there are any errors, you'll be able to see the error in the command line as well which helps with debugging. Press `Ctrl + c` in the command line when you're done talking to the bot. 
 

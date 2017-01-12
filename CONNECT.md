@@ -1,9 +1,9 @@
-#Connecting the bot to Messenger
+#Connecting the bot to messaging channels
 
-Now that our bot works locally, we are going to link it to the Microsoft Bot Framework so that we can connect it to the Facebook Messenger channel. 
+Now that our bot works locally, we are going to link it to the Bot Connector so that we can connect it to channels like Skype and Facebook Messenger.
 
 ####Do the following to begin with:
-- Install git
+- Install [git](https://git-scm.com/downloads)
 - Make a Microsoft account if you don't have one
 - Make a Github account if you don't have one
 
@@ -41,13 +41,14 @@ If you refresh your Github repository online, you should see that your code has 
 
 ##Publish the bot online
 
-We have to publish the bot online as the Bot Framework won't be able to talk to a local url. If you publish it with Azure, you'll get some neat analytics along with it to monitor your bot usage (seeing as Azure is owned by Microsoft too and will probably have cool integrations in future). You'll also get $200 in credit in the first month to play around with, and then it'll go back to free tier after that ([Here's](https://azure.microsoft.com/en-us/free/pricing-offers/) a list of all the free features in Azure). The only downside is that you'll need to put in your credit card details when you sign up, but they won't take any money off it if you stay on free tier. 
+We have to publish the bot online as the Bot Framework won't be able to talk to a local url. 
 
-Go to [Azure's main page](https://azure.microsoft.com/en-us/free/) and click on Start free. Sign in to your Microsoft Account. It might do a phone verification step after this to make sure you're an actual person - just follow the instructions. You'll then have to fill in your credit card details - which they use only to verify your identity. You will not be charged unless you explicitly upgrade to a paid offer.
-
-After you've signed up, you should be able to go to the [Azure Portal](https://portal.azure.com). Click on 'New' (it's at the sidebar), go into the web + mobile tab, and click on Web App. Name your web app whatever you'd like, name your resource group something sensible. Your Subscription should be free, and the location your app is hosted on can be anywhere, but it might be good to set it to a region close to you. Go ahead and create your web app.
+Go to the [Azure Portal](https://portal.azure.com). Click on 'New' (it's at the sidebar), go into the web + mobile tab, and click on Web App. Name your web app whatever you'd like, name your resource group something sensible. Your Subscription should be free, and the location your app is hosted on can be anywhere, but it might be good to set it to a region close to you. Go ahead and create your web app.
 
 It might take a while, but you will get notified when your web app has been successfully created. Once it has been created go into All Resources (it's on the sidebar) and look for the web app you just created. Click into it and it should display a dashboard with info about your web app. Click into the Github blade under Choose Source. Then, click into Authorization and log in with your Github credentials. Then, select the project and branch (should be master) that your bot is in. Leave the Performance Test as not configured and hit ok. 
 
 It may take a while for the latest commit to sync and be deployed to your web app. If the latest commit doesn't seem to be syncing, just hit sync. You'll see a green tick with your latest commit once it's done. 
 
+##Connecting your bot to messaging channels
+
+We need to create a bot on the Bot Framework portal. Go to the [portal](https://dev.botframework.com) and log in with your Microsoft credentials. 
