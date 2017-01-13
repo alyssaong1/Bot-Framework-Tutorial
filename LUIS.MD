@@ -71,7 +71,7 @@ Leave the checkbox unticked, then click the publish web service button. After pu
 ## Updating LUIS
 Whenever we add new intents, entities or utterances, LUIS has to be updated. We can do this by clicking train again, then clicking the publish button.
 
-![Update](https://raw.githubusercontent.com/alyssaong1/HOL-NUSHackathon/master/Images/Luis/Update.PNG)
+![Update](https://raw.githubusercontent.com/alyssaong1/HOL-NUSHackathon/master/Images/Luis/UpdateNew.PNG)
 
 ## Connecting LUIS to your bot
 Connecting LUIS to your bot is as simple as pasting the publish URL into the intent dialog you already have.
