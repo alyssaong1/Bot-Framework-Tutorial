@@ -50,5 +50,36 @@ In order for LUIS to perform better, you need to give it more examples of an int
 
 Let's add another utterance saying "Get me the news in Paris please".
 
+![NewUtterance](https://raw.githubusercontent.com/alyssaong1/HOL-NUSHackathon/master/Images/Luis/NewUtterance.PNG)
+
+- Select the correct intent from the dropdown box, in this case being "GetNews".
+- Select the word "Paris" and make sure to label it as Location.
+
+Now that LUIS has another piece of data to work with, it is now able to understand when the user wants to get news with greater accuracy. If you want to, you can keep adding more utterances to improve understanding.
+
+## Publishing LUIS
+To make sure that our LUIS service is accessible by the bot, we first need to publish it.
+
+First, click the "Train" button on the bottom left so that LUIS can train itself on your provided data.
+
+Then, click the publish button on the top left.
+
+![Publish](https://raw.githubusercontent.com/alyssaong1/HOL-NUSHackathon/master/Images/Luis/Publish.PNG)
+
+Leave the checkbox unticked, then click the publish web service button. After publishing, a URL will be provided to you. Copy and take note of this URL.
+
+## Updating LUIS
+Whenever we add new intents, entities or utterances, LUIS has to be updated. We can do this by clicking train again, then clicking the publish button.
+
+![Update](https://raw.githubusercontent.com/alyssaong1/HOL-NUSHackathon/master/Images/Luis/Update.PNG)
 
 ## Connecting LUIS to your bot
+Connecting LUIS to your bot is as simple as pasting the publish URL into the intent dialog you already have.
+
+```js
+var luisRecognizer = new builder.LuisRecognizer('Your publish URL here');
+var dialog = new builder.IntentDialog({recognizers: [luisRecognizer]});
+bot.dialog('/', dialog);
+```
+
+After that, your bot should be able to understand natural language.
