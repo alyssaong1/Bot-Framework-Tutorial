@@ -23,7 +23,7 @@ Now that you have your subscription key (you can use either key 1 or key 2, it d
 
 **Ok cool, now how do we link the news to the bot?**
 
-Let's start off by getting the bot to understand us when we try to look for news or scan an image. Modify the intentsDialog.matches line to this:
+Let's start off by getting the bot to understand us when we try to look for news or scan an image. Make sure your intentsDialog.matches line looks like this:
 
 ```js
 intentDialog.matches(/\b(hi|hello|hey|howdy)\b/i, '/sayHi')
@@ -32,7 +32,7 @@ intentDialog.matches(/\b(hi|hello|hey|howdy)\b/i, '/sayHi')
     .onDefault(builder.DialogAction.send("Sorry, I didn't understand what you said."));
 ```
 
-Then add this snippet of code at the end to create a dialog for top news:
+Basically, when the user's utterance comes in to the bot, it gets checked against the regex first. If none of the regexes match, it will make a call to LUIS and route the message to the intent that it matches to. Add this snippet of code at the end to create a dialog for top news:
 
 ```js
 bot.dialog('/topNews', [
