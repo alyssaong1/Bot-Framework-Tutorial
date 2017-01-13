@@ -19,3 +19,12 @@ Welcome to the Mars Challenge. The Mars Challenge is a series of hands-on labs w
 - **Bonus Mission:** Connecting the bot to other channels
 
 We will be walking through Mission 1 together, then you will be doing Missions 2 and 3 on your own. 
+
+###LUIS Keys
+
+Use one of the following keys for LUIS if you weren't able to activate your Azure Pass:
+
+- a6b43fbe1d814bc7a807e3db1bd079cd
+- 15b8f396cb3a4de897847549e4b9cee2
+- e06c0f90af8b493692aeb9c6dbbc24fb
+- 17dc6ebbe28e4907ab33186b9830f559

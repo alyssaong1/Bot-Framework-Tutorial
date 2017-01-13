@@ -110,6 +110,12 @@ var BINGNEWSKEY = '*****YOUR SUBSCRIPTION KEY GOES HERE*****';
 ...
 ```
 
+**If you were not able to activate your Azure Pass, use either one of the following keys:**
+- 052d7d1232a54a44bf037ca6f1bdcdd5
+- 65f7e3fa7bcc484a94b3db8fdbbb6279
+- 8ead727580ec45588255b218f7e78db8
+- cbfe538a5a9a44b0ae989bdaa13507df
+
 Note that for security reasons it's generally not advisable to paste any keys, passwords or sensitive stuff in your code - for now we're just doing it for the sake of simplicity. You can use [environment variables](https://blogs.msdn.microsoft.com/stuartleeks/2015/08/10/azure-api-apps-configuration-with-environment-variables/) as a way to keep the sensitive stuff away from the code. But for now just put it in your code. 
 
 With that, we can start calling the API. Modify '/topNews' to the following:
