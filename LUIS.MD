@@ -78,8 +78,8 @@ Connecting LUIS to your bot is as simple as pasting the publish URL into the int
 
 ```js
 var luisRecognizer = new builder.LuisRecognizer('Your publish URL here');
-var dialog = new builder.IntentDialog({recognizers: [luisRecognizer]});
-bot.dialog('/', dialog);
+var intentDialog = new builder.IntentDialog({recognizers: [luisRecognizer]});
+bot.dialog('/', intentDialog);
 ```
 
 After that, your bot should be able to understand natural language.
