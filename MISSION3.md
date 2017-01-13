@@ -12,14 +12,21 @@ I'm feeling generous today so here are some hints:
 
 - You'll need the Bing Computer Vision API. [Here's](https://dev.projectoxford.ai/docs/services/56f91f2d778daf23d8ec6739/operations/56f91f2e778daf14a499e1fe) the API reference. Refer to it when building your options for the API call in your code. Retrieving the subscription keys is similar to how you did it for LUIS and the news search. 
 
-- The options for your API call should be in the following format:
+**Use one of the following keys for Bing Computer Vision if you weren't able to activate your Azure Pass:**
+
+- 220c65d094fd40ba8809c0f91383c703
+- 50693e3b94244c6b82518d9f0055e939
+- cf8b90e1c5fa4bdcb2bfd65c73935e72
+- a5ac77a11c4d4143be4b902dfd0724e8
+
+The options for your API call should be in the following format:
 
 ```js
 var options = {
             method: 'POST', // thie API call is a post request
             uri: '**REFER TO API REFERENCE AND FIND OUT THE API ENDPOINT**',
             headers: {
-                'Ocp-Apim-Subscription-Key': '**YOUR BING CV KEY**',
+                'Ocp-Apim-Subscription-Key': '**YOUR BING COMPUTER VISION KEY**',
                 'Content-Type': '**REFER TO API REFERENCE**'
             },
             body: {
