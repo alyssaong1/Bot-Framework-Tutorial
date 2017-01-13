@@ -1,10 +1,10 @@
 #Building our Bot
 
-The bot we made in Mission 1 is currently not very smart. In this part, we'll be building out the logic of our bot so it actually starts being useful and gives us news. 
+The bot we made in Mission 1 currently doesn't do much. In this part, we'll be building out the logic of our bot so it actually starts being useful and gives us news. 
 
 ##Mission 2: Get News
 
-We're moving on to more complex stuff now. Let's try fetching top news based on category so we can stay updated with civilisation.
+We're moving on to more complex stuff now. Let's try fetching news based on category so we can stay updated with civilisation.
 
 **NOTE: We will be asking you questions at the end of this so do not just copy and paste without understanding what is going on.**
 
@@ -234,5 +234,5 @@ Lastly, let's update package.json to indicate that our starting script is app.js
 }
 ```
 
-Microsoft Bot Framework makes it easy to deploy your bot onto any platform, but you need to be aware that not all messaging platforms (e.g. Kik, Telegram) will support the same attachments (e.g. most of them support sending text and image messages, but not cards). While the logic is the same (i.e. the API calls you make will not change across the bots), you'd have to check which messaging platform the user's message is coming from, then handling how your response is sent based on that. I may do a tutorial for this in future. 
+You have now successfully fetched news from civilization! Microsoft Bot Framework makes it easy to deploy your bot onto any platform, but you need to be aware that not all messaging platforms (e.g. Kik, Telegram) will support the same attachments (e.g. most of them support sending text and image messages, but not cards). While the logic is the same (i.e. the API calls you make will not change across the bots), you'd have to check which messaging platform the user's message is coming from, then handling how your response is sent based on that. I may do a tutorial for this in future. 
 

@@ -30,4 +30,9 @@ var options = {
 ```
 [Here's](https://github.com/request/request-promise) the full documentation to request-promise in case you need it. 
 
-####If you think you got it, put https://heavyeditorial.files.wordpress.com/2016/05/harambe-22.jpg in and let us know what the caption is. No cheating! We will be reviewing your code and potentially asking questions.
+####Once you think you've got it, put the following image links into your bot:
+- http://cp91279.biography.com/1000509261001/1000509261001_2051017826001_Bio-Biography-Neil-Armstrong-SF.jpg
+- http://cdn1us.denofgeek.com/sites/denofgeekus/files/styles/article_width/public/2016/01/millennium-falcon.jpg
+- https://heavyeditorial.files.wordpress.com/2016/05/harambe-22.jpg
+
+**Let us know what the captions for each 3 are. No cheating! We will be reviewing your code and potentially asking questions.**
