@@ -47,9 +47,11 @@ Go to the [Azure Portal](https://portal.azure.com). Click on 'New' (it's at the 
 
 It might take a while, but you will get notified when your web app has been successfully created. Once it has been created go into All Resources (it's on the sidebar) and look for the web app you just created. Click into it and it should display a dashboard with info about your web app. Click into the Github blade under Choose Source. Then, click into Authorization and log in with your Github credentials. Then, select the project and branch (should be master) that your bot is in. Leave the Performance Test as not configured and hit ok. 
 
-
+![CI](https://raw.githubusercontent.com/alyssaong1/HOL-NUSHackathon/master/Images/Bonus/cintegration.PNG)
 
 It may take a while for the latest commit to sync and be deployed to your web app. If the latest commit doesn't seem to be syncing, just hit sync. You'll see a green tick with your latest commit once it's done. 
+
+![CISuccess](https://raw.githubusercontent.com/alyssaong1/HOL-NUSHackathon/master/Images/Bonus/cintsuccess.PNG)
 
 ##Registering your bot on the portal
 
@@ -76,7 +78,7 @@ The top portion has several useful functions.
 - The Web Chat (iframe) channel that has been pre-embedded for you on the page, allowing you to talk to your bot from the portal
 
 The most important part is the bottom portion, where you will be able to go through a simple set of steps to connect to different channels like Facebook, Telegram, etc.
-By default, the Skype and Web Chat channels should already be setup for you. 
+By default, the Skype and Web Chat channels should already be setup for you. Try adding the Bot as a Skype contact and start talking to it.
 
 ## Common issues
 If your test returns an authentication/authorization error, chances are that the Microsoft App ID and Password that you registered on the portal has not been configured on your bot's server.

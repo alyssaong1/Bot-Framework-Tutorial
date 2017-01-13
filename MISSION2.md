@@ -220,5 +220,19 @@ bot.dialog('/topNews', [
 ]);
 ```
 
+Lastly, let's update package.json to indicate that our starting script is app.js. Go to package.json and modify the scripts property to this:
+
+```js
+{
+    ...
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "author": "Alyssa Ong",
+    ...
+}
+```
+
 Microsoft Bot Framework makes it easy to deploy your bot onto any platform, but you need to be aware that not all messaging platforms (e.g. Kik, Telegram) will support the same attachments (e.g. most of them support sending text and image messages, but not cards). While the logic is the same (i.e. the API calls you make will not change across the bots), you'd have to check which messaging platform the user's message is coming from, then handling how your response is sent based on that. I may do a tutorial for this in future. 
 
