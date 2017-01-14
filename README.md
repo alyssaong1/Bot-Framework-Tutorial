@@ -13,12 +13,19 @@ Welcome to the Mars Challenge. The Mars Challenge is a series of hands-on labs w
 
 ###Lab content
 
-- **Mission 1:** Creating the bot and linking to LUIS
+- **Mission 1 and LUIS.md:** Creating the bot and linking to LUIS
 - **Mission 2:** Getting news from Earth through the bot
-- **Mission 3:** Identifying objects using the Computer Vision API
-- **Bonus Mission:** Connecting the bot to other channels
+- **Mission 3:** Identifying objects using the Computer Vision API (DIY Challenge)
+- **Connect:** Connecting the bot to other channels
 
-We will be walking through Mission 1 together, then you will be doing Missions 2 and 3 on your own. 
+###Links to get started
+
+- Microsoft Bot Framework documentation [Link](https://docs.botframework.com/en-us/)
+- Full LUIS documentation [Link](https://www.luis.ai/help)
+- Bot Samples for Nodejs [Link](https://github.com/Microsoft/BotBuilder/tree/master/Node/examples)
+- Bot Samples for C# [Link](https://github.com/Microsoft/BotBuilder/tree/master/CSharp/Samples)
+- More Bot Samples [Link](https://github.com/Microsoft/BotBuilder-Samples)
+- Lots of Bot resources [Link](https://aka.ms/botresources)
 
 ###LUIS Keys
 
