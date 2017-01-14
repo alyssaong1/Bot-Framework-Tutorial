@@ -39,6 +39,24 @@ git push origin master
 
 If you refresh your Github repository online, you should see that your code has been pushed to it. Now let's use continuous integration to deploy the code in our Github repo into a web app hosted online. 
 
+##Set the start command
+
+In your package.json file (if you're using nodejs), we need to update the start script. Update your package.json file to the following:
+
+```js
+{
+    ...
+    "main": "app.js",
+    "scripts": {
+        "start": "node index.js" // tells the web service where the start script is
+    },
+    "author": "Alyssa Ong",
+    ...
+}
+```
+
+This step is very important - your bot service may not work if you do not do this.
+
 ##Publish the bot online
 
 We have to publish the bot online as the Bot Framework won't be able to talk to a local url. 
