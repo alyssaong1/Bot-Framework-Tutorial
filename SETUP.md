@@ -75,4 +75,4 @@ Open the Bot Framework Emulator. You should see some text fields at the top. Loc
 
 Go ahead and type a message in the chatbox at the bottom and send it. The bot should respond 'Hello World' every time you send it a message. If you look back at the command line, you'll be able to see some info on what's being called. Note that if there are any errors, you'll be able to see the error in the command line as well which helps with debugging. Press `Ctrl + c` in the command line when you're done talking to the bot. 
 
-Congratulations, you've finished Part 1! If you're keen beans to start building the bot's logic, then head on over to Part 2 now. If you want to connect the bot to Messenger first, you can do Part 3 first then do Part 2. 
+Congratulations, you've finished Mission 1! 
