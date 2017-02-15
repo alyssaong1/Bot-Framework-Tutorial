@@ -17,8 +17,8 @@ Now run `npm init` to start your nodejs project. They'll fill in some fields for
 If you check your bot's folder now, there should be a package.json file. [package.json](https://docs.npmjs.com/files/package.json) is like a description of the project, such as which packages our node project uses. It does other useful stuff too that we don't need for this tutorial. Now run the following 2 commands separately in the command line to install the botbuilder and restify packages (each of the packages may take a while to finish installing):
 
 ```shell
-npm install --save botbuilder
-npm install --save restify
+npm install --save botbuilder@3.6.0
+npm install --save restify@4.3.0
 ```
 
 Packages (or dependencies) are like parts/modules that others have written which we can use to build our bot. Microsoft's [BotBuilder](https://www.npmjs.com/package/botbuilder) is a framework we use to build our bot by handling stuff such as dialogs and storing info about the user. [Restify](https://www.npmjs.com/package/restify) exposes our bot through an API so that other web services can talk to it. The `--save` flag automatically updates the package.json file to show that BotBuilder and Restify are dependencies in our project.
@@ -27,9 +27,9 @@ Open up Visual Studio Code. Go to File > Open Folder... and select your bot's fo
 
 <insert img>
 
- The node_modules folder contains all the packages needed in our project. If you look into the folder, you'll see more than just BotBuilder and Restify - that's because they require other packages to work as well. Right click the left panel area and create a new file. Name it 'app.js'. Your resulting folder structure should look like this:
+ The node_modules folder contains all the packages needed in our project. If you look into the folder, you'll see more than just BotBuilder and Restify - that's because they require other packages to work as well. Right click the left panel area and create a new file. Name it 'server.js'.
  
- Now copy and paste the following snippet of code into app.js:
+ Now copy and paste the following snippet of code into server.js:
 
 ```js
 // Reference the packages we require so that we can use them in creating the bot
@@ -69,7 +69,9 @@ bot.dialog('/', function (session) {
 
 I've inserted comments to explain the code. At the moment, the bot sends "Hello World" to the user every time it receives a message. To talk to our bot, we will use the [Bot Framework Emulator](https://docs.botframework.com/en-us/tools/bot-framework-emulator/). Install it straight from [here](https://emulator.botframework.com). 
 
-Once you've installed the emulator, let's get talking to our bot. Go back to the command prompt and run `node app.js`. This basically runs the app.js file, which is the starting point of our bot. It may take a while to fire up, and it will look like this once it's done:  
+Once you've installed the emulator, let's get talking to our bot. Go back to the command prompt or Integrated Terminal (in VSCode under View) and run `node server.js`. This basically runs the server.js file, which is the starting point of our bot. It may take a while to fire up, and it will look like this once it's done:  
+
+![node server.js pic](/Bot-Framework-HOL/Images/serverjs_cmdline.png)
 
 Open the Bot Framework Emulator. You should see some text fields at the top. Local Port should be 9000, Emulator Url should be http://localhost:9000/ and Bot Url should be http://localhost:3978/api/messages. Here, our emulator is sending Post requests from port 9000 of our local server, to /api/messages on port 3978 of our local server (use whatever port your server is using). Leave the Microsoft App Id and Microsoft App Password fields blank for now.
 
