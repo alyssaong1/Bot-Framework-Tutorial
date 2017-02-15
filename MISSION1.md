@@ -71,7 +71,7 @@ I've inserted comments to explain the code. At the moment, the bot sends "Hello 
 
 Once you've installed the emulator, let's get talking to our bot. Go back to the command prompt or Integrated Terminal (in VSCode under View) and run `node server.js`. This basically runs the server.js file, which is the starting point of our bot. It may take a while to fire up, and it will look like this once it's done:  
 
-![node server.js pic](/Bot-Framework-HOL/Images/serverjs_cmdline.png)
+![node server.js pic](/Images/Mission1/serverjs_cmdline.png)
 
 Open the Bot Framework Emulator. You should see some text fields at the top. Local Port should be 9000, Emulator Url should be http://localhost:9000/ and Bot Url should be http://localhost:3978/api/messages. Here, our emulator is sending Post requests from port 9000 of our local server, to /api/messages on port 3978 of our local server (use whatever port your server is using). Leave the Microsoft App Id and Microsoft App Password fields blank for now.
 

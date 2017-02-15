@@ -23,6 +23,7 @@
   "homepage": "https://github.com/michhar/Bot-Framework-HOL#readme",
   "dependencies": {
     "botbuilder": "^3.6.0",
+    "request-promise": "^4.1.1",
     "restify": "^4.3.0"
   }
 }

@@ -1,6 +1,9 @@
 // Reference the packages we require so that we can use them in creating the bot
 var restify = require('restify');
 var builder = require('botbuilder');
+var rp = require('request-promise');
+
+var BINGSEARCHKEY = '*****YOUR SUBSCRIPTION KEY GOES HERE*****';
 
 //=========================================================
 // Bot Setup
@@ -26,19 +29,59 @@ server.post('/api/messages', connector.listen());
 // Bots Dialogs
 //=========================================================
 
-// This is called the root dialog. It is the first point of entry for any message the bot receives
-bot.dialog('/', function (session) {
-    // Send 'hello world' to the user
-    session.send("Hello World");
+var luisRecognizer = new builder.LuisRecognizer('Your publish URL here');
+var intentDialog = new builder.IntentDialog({recognizers: [luisRecognizer]});
+
+//This is called the root dialog. It is the first point of entry for any message the bot receives
+bot.dialog('/', intentDialog);
+
+intentDialog.matches(/\b(hi|hello|hey|howdy)\b/i, '/sayHi')
+    .matches('GetNews', '/topNews')
+    .matches('analyseImage', '/analyseImage')
+    .onDefault(builder.DialogAction.send("Sorry, I didn't understand what you said."));
+
+bot.dialog('/sayHi', function(session) {
+    session.send('Hi there!  Try saying things like "Get news in Toyko"');
+    session.endDialog();
 });
 
-
-
-// var luisRecognizer = new builder.LuisRecognizer('Your publish URL here');
-
-// // Delete later
-// var luisRecognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/68739a3b-7bde-43d1-95f6-5110cd4aa46a?subscription-key=01da21fa37f542bc8b3d20f1282fc02b');
-
-
-// var intentDialog = new builder.IntentDialog({recognizers: [luisRecognizer]});
-// bot.dialog('/', intentDialog);
+bot.dialog('/topNews', [
+    function (session){
+        // Ask the user which category they would like
+        // Choices are separated by |
+        builder.Prompts.choice(session, "Which category would you like?", "Technology|Science|Sports|Business|Entertainment|Politics|Health|World|(quit)");
+    }, function (session, results, next){
+        // The user chose a category
+        if (results.response && results.response.entity !== '(quit)') {
+           //Show user that we're processing their request by sending the typing indicator
+            session.sendTyping();
+            // Build the url we'll be calling to get top news
+            var url = "https://api.cognitive.microsoft.com/bing/v5.0/news/?" 
+                + "category=" + results.response.entity + "&count=10&mkt=en-US&originalImg=true";
+            // Build options for the request
+            var options = {
+                uri: url,
+                headers: {
+                    'Ocp-Apim-Subscription-Key': BINGSEARCHKEY
+                },
+                json: true // Returns the response in json
+            }
+            //Make the call
+            rp(options).then(function (body){
+                // The request is successful
+                console.log(body); // Prints the body out to the console in json format
+                session.send("Managed to get your news.");
+            }).catch(function (err){
+                // An error occurred and the request failed
+                console.log(err.message);
+                session.send("Argh, something went wrong. :( Try again?");
+            }).finally(function () {
+                // This is executed at the end, regardless of whether the request is successful or not
+                session.endDialog();
+            });
+        } else {
+            // The user choses to quit
+            session.endDialog("Ok. Mission Aborted.");
+        }
+    }
+]);
