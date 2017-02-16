@@ -6,7 +6,7 @@ The bot we made in Mission 1 currently doesn't do much. In this part, we'll be b
 
 ### Setting up LUIS
 
-Before starting on this tutorial, we first need to make our bot understand natural language. Follow this [tutorial](https://github.com/alyssaong1/HOL-NUSHackathon/blob/master/LUIS.MD) to make your bot work with LUIS.
+Before starting on this tutorial, we first need to make our bot understand natural language. Follow this [tutorial](LUIS.MD) to make your bot work with LUIS.
 
 ### After setting up LUIS
 
@@ -20,24 +20,39 @@ We're gonna go to CNN and copy paste the headlines manually into our bot. Just k
 
 - [Endpoints and examples of requests and responses](https://msdn.microsoft.com/en-us/library/dn760783.aspx)
 - [Parameters for requests](https://msdn.microsoft.com/en-us/library/dn760793(v=bsynd.50).aspx)
+- [Market Codes for Bing](https://msdn.microsoft.com/en-us/library/dn783426.aspx)
+- [Categories for Bing News by market](https://msdn.microsoft.com/en-us/library/dn760793(v=bsynd.50).aspx#categoriesbymarket)
 
 To start using the Bing News API, we will need a subscription key. We can get one in a similar manner as how we got our LUIS subscription key. Go to the [Azure portal](https://portal.azure.com) and log in. Then click + New and search for Cognitive Services. Create a new Cognitive Services API instance, and make sure you select Bing Search APIs in the API type field. 
 
-![SearchApi](https://raw.githubusercontent.com/alyssaong1/HOL-NUSHackathon/master/Images/Mission2/searchapi.PNG)
+![SearchApi](Images/Mission2/searchapi.PNG)
 
 Now that you have your subscription key (you can use either key 1 or key 2, it doesn't matter), you can go to the [API testing console](https://dev.cognitive.microsoft.com/docs/services/56b43f72cf5ff8098cef380a/operations/56f02400dbe2d91900c68553) and play around with the API if you'd like. Try sending some requests and see the responses you get. [Here](https://msdn.microsoft.com/en-us/library/dn760793(v=bsynd.50).aspx#categoriesbymarket) are all the possible categories for Category News by the way. 
 
 
 **Ok cool, now how do we link the news to the bot?**
 
-Let's start off by getting the bot to understand us when we try to look for news or scan an image. Make sure your intentsDialog.matches line looks like this:
+Let's start off by getting the bot to understand us when we try to look for news or scan an image. Make sure your intentsDialog.matches line looks like below.
+
+Also, don't forget about your LUIS recognizer and bot root dialog from the Mission1 [part](MISSION1.md).  You'll need this code as well so go ahead and paste it in.
 
 ```js
 intentDialog.matches(/\b(hi|hello|hey|howdy)\b/i, '/sayHi')
-    .matches('getNews', '/topNews')
+    .matches('GetNews', '/topNews')
     .matches('analyseImage', '/analyseImage')
     .onDefault(builder.DialogAction.send("Sorry, I didn't understand what you said."));
 ```
+
+Also, let's be friendly and add a dialog handler for 'sayHi' as follows:
+
+```js
+bot.dialog('/sayHi', function(session) {
+    session.send('Hi there!  Try saying things like "Get news in Toyko"');
+    session.endDialog();
+});
+```
+
+Go ahead and run your bot code from the command line as you have been with `node server.js`.
 
 Basically, when the user's utterance comes in to the bot, it gets checked against the regex first. If none of the regexes match, it will make a call to LUIS and route the message to the intent that it matches to. Add this snippet of code at the end to create a dialog for top news:
 
@@ -98,7 +113,7 @@ Not with a cellphone. We'll be using a Node package called [request-promise](htt
 npm install --save request-promise
 ```
 
-Now let's add a reference to request-promise into our bot. Add it to the top where we reference other modules, like this:
+Now let's add a reference to request-promise into our bot. Add it to the top where we reference other modules such that all of the references look like this:
 
 ```js
 var restify = require('restify');
@@ -106,14 +121,12 @@ var builder = require('botbuilder');
 var rp = require('request-promise');
 ```
 
-Under that, let's declare the Bing News Subscription Key which we will need to add in the header of the request:
+Under that, let's declare the Bing Search Subscription Key which we will need to add in the header of the request:
 
 ```js
 ...
-var rp = require('request-promise');
-
-// Static variables that we can use anywhere in app.js
-var BINGNEWSKEY = '*****YOUR SUBSCRIPTION KEY GOES HERE*****';
+// Static variables that we can use anywhere in server.js
+var BINGSEARCHKEY = '*****YOUR SUBSCRIPTION KEY GOES HERE*****';
 ...
 ```
 
@@ -139,7 +152,7 @@ bot.dialog('/topnews', [
             var options = {
                 uri: url,
                 headers: {
-                    'Ocp-Apim-Subscription-Key': BINGNEWSKEY
+                    'Ocp-Apim-Subscription-Key': BINGSEARCHKEY
                 },
                 json: true // Returns the response in json
             }
@@ -232,11 +245,11 @@ Lastly, let's update package.json to indicate that our starting script is app.js
 ```js
 {
     ...
-    "main": "app.js",
+    "main": "server.js",
     "scripts": {
-        "start": "node app.js"
+        "start": "node server.js"
     },
-    "author": "Alyssa Ong",
+    "author": "Alyssa Ong with edits by Micheleen Harris",
     ...
 }
 ```
