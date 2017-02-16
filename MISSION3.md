@@ -1,10 +1,10 @@
-#Mission 3: Identifying an image using Bing Computer Vision API
+#Mission 3: Identifying an image using the Computer Vision API
 
-Alright you're pretty much on your own for this mission. The goal of the mission is to be able to let the bot know you want to scan an image. The bot then takes in a url, sends it to Bing CV, and gets the caption.
+Alright you're pretty much on your own for this mission. The goal of the mission is to be able to let the bot know you want to scan an image. The bot then takes in a url, sends it to the CV API, and gets the caption.
 
 The completed conversation if you complete this mission should look like this:
 
-![Completed](https://raw.githubusercontent.com/alyssaong1/HOL-NUSHackathon/master/Images/Mission3/m3result.PNG)
+![Completed](Images/Mission3/m3result.PNG)
 
 **Note that you MUST use LUIS!**
 

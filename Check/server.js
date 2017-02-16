@@ -30,6 +30,7 @@ server.post('/api/messages', connector.listen());
 //=========================================================
 
 var luisRecognizer = new builder.LuisRecognizer('Your publish URL here');
+
 var intentDialog = new builder.IntentDialog({recognizers: [luisRecognizer]});
 
 //This is called the root dialog. It is the first point of entry for any message the bot receives
@@ -37,7 +38,7 @@ bot.dialog('/', intentDialog);
 
 intentDialog.matches(/\b(hi|hello|hey|howdy)\b/i, '/sayHi')
     .matches('GetNews', '/topNews')
-    .matches('analyseImage', '/analyseImage')
+    .matches(/\b(analyze|analyse|image|caption)\b/i, '/analyseImage')
     .onDefault(builder.DialogAction.send("Sorry, I didn't understand what you said."));
 
 bot.dialog('/sayHi', function(session) {
@@ -66,14 +67,58 @@ bot.dialog('/topNews', [
                 },
                 json: true // Returns the response in json
             }
+    //Make the call
+    rp(options).then(function (body){
+        // The request is successful
+        sendTopNews(session, results, body);
+    }).catch(function (err){
+        // An error occurred and the request failed
+        console.log(err.message);
+        session.send("Argh, something went wrong. :( Try again?");
+    }).finally(function () {
+        // This is executed at the end, regardless of whether the request is successful or not
+        session.endDialog();
+    });
+        } else {
+            // The user choses to quit
+            session.endDialog("Ok. Mission Aborted.");
+        }
+    }
+]);
+
+bot.dialog('/analyseImage', [
+    function (session){
+        // Ask the user which category they would like
+        // Choices are separated by |
+        builder.Prompts.text(session, "Enter an image url to get the caption for it: ");
+    }, function (session, results, next){
+        // The user chose a category
+        if (results.response) {
+           //Show user that we're processing their request by sending the typing indicator
+            session.sendTyping();
+            // Build the url we'll be calling to get top news
+            var url = "https://westus.api.cognitive.microsoft.com/vision/v1.0/describe/";
+            // Build options for the request
+            var options = {
+                        method: 'POST', // thie API call is a post request
+                        uri: url,
+                        headers: {
+                            'Ocp-Apim-Subscription-Key': '**YOUR COMPUTER VISION KEY**',
+                            'Content-Type': "application/json"
+                        },
+                        body: {
+                            url: results.response,
+                            language: 'en'
+                        },
+                        json: true
+                    }
             //Make the call
             rp(options).then(function (body){
                 // The request is successful
-                console.log(body); // Prints the body out to the console in json format
-                session.send("Managed to get your news.");
+                console.log(body["description"]["captions"]);
+                session.send(body["description"]["captions"][0]["text"]);
             }).catch(function (err){
                 // An error occurred and the request failed
-                console.log(err.message);
                 session.send("Argh, something went wrong. :( Try again?");
             }).finally(function () {
                 // This is executed at the end, regardless of whether the request is successful or not
@@ -85,3 +130,57 @@ bot.dialog('/topNews', [
         }
     }
 ]);
+
+// This function processes the results from the API call to category news and sends it as cards
+function sendTopNews(session, results, body){
+    session.send("Top news in " + results.response.entity + ": ");
+    //Show user that we're processing by sending the typing indicator
+    session.sendTyping();
+    // The value property in body contains an array of all the returned articles
+    var allArticles = body.value;
+    var cards = [];
+    // Iterate through all 10 articles returned by the API
+    for (var i = 0; i < 10; i++){
+        var article = allArticles[i];
+        // Create a card for the article and add it to the list of cards we want to send
+        cards.push(new builder.HeroCard(session)
+            .title(article.name)
+            .subtitle(article.datePublished)
+            .images([
+                //handle if thumbnail is empty
+                builder.CardImage.create(session, article.image.contentUrl)
+            ])
+            .buttons([
+                // Pressing this button opens a url to the actual article
+                builder.CardAction.openUrl(session, article.url, "Full article")
+            ]));
+    }
+    var msg = new builder.Message(session)
+        .textFormat(builder.TextFormat.xml)
+        .attachmentLayout(builder.AttachmentLayout.carousel)
+        .attachments(cards);
+    session.send(msg);
+}
+
+var extractText = function _extractText(bodyMessage) {
+
+    if (typeof bodyMessage.captions === "undefined") return "";
+
+    var caps = bodyMessage.captions[0];
+
+    if (typeof caps !== "undefined" &&
+        caps.length > 0) {
+
+        alltext = "";
+
+        // For all lines in image ocr result
+        //   grab the text in the words array
+        for (i = 0; i < caps.length; i++) {
+            var text = caps[i].text;
+            alltext += text;
+        }
+        return alltext;
+    }
+
+    return "Sorry, I can't find text captions :( !";
+};
