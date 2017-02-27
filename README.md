@@ -9,16 +9,16 @@ Welcome to the Mars Challenge. The Mars Challenge is a series of hands-on labs w
 - Install [NodeJS](https://nodejs.org/en/). After you've installed this, open your command line and run `npm install npm -g`. This updates Node's Package Manager (npm) to the latest version.
 - Install [Visual Studio Code](https://code.visualstudio.com/) (or any other code editor of your choice)
 - Install [Bot Framework emulator](https://emulator.botframework.com)
-- Activate your Azure Pass. Instructions [here](https://www.microsoftazurepass.com/howto). If you already activated Microsoft Imagine (or any other subscription), please use it for the lab. The Azure Pass cannot be used alongside any other subscription. 
 
 ###Lab content
 
-- **Mission 1 and LUIS.md:** Creating the bot and linking to LUIS
-- **Mission 2:** Getting news from Earth through the bot
+- **Mission 1:** Creating/setting up the bot
+- **Mission 2:** Getting news using Bing News API
 - **Mission 3:** Identifying objects using the Computer Vision API (DIY Challenge)
-- **Connect:** Connecting the bot to other channels
+- **LUIS:** Using LUIS
+- **Connect:** Deploying the bot to Azure and connecting to channels
 
-###Links to get started
+###Additional reference links
 
 - Microsoft Bot Framework documentation [Link](https://docs.botframework.com/en-us/)
 - Full LUIS documentation [Link](https://www.luis.ai/help)
