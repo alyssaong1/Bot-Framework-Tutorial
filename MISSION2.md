@@ -29,21 +29,20 @@ To start using the Bing News API, we will need a subscription key. We can get on
 
 Now that you have your subscription key (you can use either key 1 or key 2, it doesn't matter), you can go to the [API testing console](https://dev.cognitive.microsoft.com/docs/services/56b43f72cf5ff8098cef380a/operations/56f02400dbe2d91900c68553) and play around with the API if you'd like. Try sending some requests and see the responses you get. [Here](https://msdn.microsoft.com/en-us/library/dn760793(v=bsynd.50).aspx#categoriesbymarket) are all the possible categories for Category News by the way. 
 
-
 **Ok cool, now how do we link the news to the bot?**
 
 Let's start off by getting the bot to understand us when we try to look for news or scan an image. Make sure your intentsDialog.matches line looks like below.
 
-Also, don't forget about your LUIS recognizer and bot root dialog from the Mission1 [part](MISSION1.md).  You'll need this code as well so go ahead and paste it in.
+Also, don't forget about your LUIS recognizer and bot root dialog from the LUIS tutorial. 
 
 ```js
-intentDialog.matches(/\b(hi|hello|hey|howdy)\b/i, '/sayHi')
-    .matches('GetNews', '/topNews')
-    .matches('analyseImage', '/analyseImage')
-    .onDefault(builder.DialogAction.send("Sorry, I didn't understand what you said."));
+intentDialog.matches(/\b(hi|hello|hey|howdy)\b/i, '/sayHi') //Check for greetings using regex
+    .matches('GetNews', '/topNews') //Check for LUIS intent to get news
+    .matches('AnalyseImage', '/analyseImage') //Check for LUIS intent to analyze image
+    .onDefault(builder.DialogAction.send("Sorry, I didn't understand what you said.")); //Default message if all checks fail
 ```
 
-Also, let's be friendly and add a dialog handler for 'sayHi' as follows:
+Also, let's be friendly and add a 'sayHi' dialog for when we detect the greetings regex as follows:
 
 ```js
 bot.dialog('/sayHi', function(session) {
@@ -52,7 +51,7 @@ bot.dialog('/sayHi', function(session) {
 });
 ```
 
-Go ahead and run your bot code from the command line as you have been with `node server.js`.
+Go ahead and run your bot code from the command line as you have been with `node index.js`.
 
 Basically, when the user's utterance comes in to the bot, it gets checked against the regex first. If none of the regexes match, it will make a call to LUIS and route the message to the intent that it matches to. Add this snippet of code at the end to create a dialog for top news:
 
@@ -245,11 +244,9 @@ Lastly, let's update package.json to indicate that our starting script is app.js
 ```js
 {
     ...
-    "main": "server.js",
     "scripts": {
-        "start": "node server.js"
-    },
-    "author": "Alyssa Ong with edits by Micheleen Harris",
+        "start": "node index.js"
+    }
     ...
 }
 ```
