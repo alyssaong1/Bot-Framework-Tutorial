@@ -2,10 +2,10 @@
   "name": "package.json",
   "version": "1.0.0",
   "description": "For a news bot",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "test": "node server.js",
-    "start": "node server.js"
+    "test": "node index.js",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
