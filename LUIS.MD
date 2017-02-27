@@ -25,23 +25,27 @@ Fill up the form:
 ## Adding intents and entities
 After clicking your LUIS app, you should be directed to a page. The left sidebar allows us to add new intents and entities. 
 
-![LUIS UI](https://raw.githubusercontent.com/alyssaong1/HOL-NUSHackathon/master/Images/Luis/LUIS.PNG)
+![LUIS UI](https://raw.githubusercontent.com/alyssaong1/Bot-Framework-HOL/master/Images/Luis/LUIS.PNG)
 
 ### Making a new entity
-Let's first add a new pre-built entity for "geography" by clicking the plus button for "Pre-built Entities".
+Let's first add a new entity called "Location" by clicking the plus button.
 
-![NewEntity](https://raw.githubusercontent.com/alyssaong1/HOL-NUSHackathon/master/Images/Luis/NewEntity.PNG)
+![NewEntity](https://raw.githubusercontent.com/alyssaong1/Bot-Framework-HOL/master/Images/Luis/NewEntity.PNG)
+
+Although there is a pre-built Geography entity we can detect, it might not be suitable for your use case as it only detects big cities/countries and not more specific locations.
+
+![Prebuiltentity](https://raw.githubusercontent.com/alyssaong1/Bot-Framework-HOL/master/Images/Luis/prebuiltentity.PNG)
 
 ### Making a new intent
 The default intent is "None", which will be used whenever no intent is detected from a user's sentence.
 
 We can use the + button to add a new intent. Let's add "GetNews" for now. As an example utterance, write "Give me the news in Singapore".
 
-![NewIntent](https://raw.githubusercontent.com/alyssaong1/HOL-NUSHackathon/master/Images/Luis/NewIntent.PNG)
+![NewIntent](https://raw.githubusercontent.com/alyssaong1/Bot-Framework-HOL/master/Images/Luis/NewIntent.PNG)
 
 After clicking save, we will be able to label the entity in the utterance and it should automatically label the intent as GetNews and entity as geography.
 
-![NewIntentLabel](https://raw.githubusercontent.com/alyssaong1/HOL-NUSHackathon/master/Images/Luis/NewIntentLabel.PNG)
+![NewIntentLabel](https://raw.githubusercontent.com/alyssaong1/Bot-Framework-HOL/master/Images/Luis/NewIntentLabel.PNG)
 
 When you're done, click submit.
 
@@ -50,7 +54,7 @@ In order for LUIS to perform better, you need to give it more examples of an int
 
 Let's add another utterance saying "Get me the news in Paris please".
 
-![NewUtterance](https://raw.githubusercontent.com/alyssaong1/HOL-NUSHackathon/master/Images/Luis/NewUtterance.PNG)
+![NewUtterance](https://raw.githubusercontent.com/alyssaong1/Bot-Framework-HOL/master/Images/Luis/NewUtterance.PNG)
 
 - Select the correct intent from the dropdown box, in this case being "GetNews".
 - Select the word "Paris" and make sure to label it as Location.
@@ -64,14 +68,14 @@ First, click the "Train" button on the bottom left so that LUIS can train itself
 
 Then, click the publish button on the top left.
 
-![Publish](https://raw.githubusercontent.com/alyssaong1/HOL-NUSHackathon/master/Images/Luis/Publish.PNG)
+![Publish](https://raw.githubusercontent.com/alyssaong1/Bot-Framework-HOL/master/Images/Luis/Publish.PNG)
 
 Leave the checkbox unticked, then click the publish web service button. After publishing, a URL will be provided to you. Copy and take note of this URL (you can remove the "&verbose=true" part.
 
 ## Updating LUIS
 Whenever we add new intents, entities or utterances, LUIS has to be updated. We can do this by clicking train again, then clicking the publish button.
 
-![Update](https://raw.githubusercontent.com/alyssaong1/HOL-NUSHackathon/master/Images/Luis/UpdateNew.PNG)
+![Update](https://raw.githubusercontent.com/alyssaong1/Bot-Framework-HOL/master/Images/Luis/UpdateNew.PNG)
 
 ## Connecting LUIS to your bot
 Connecting LUIS to your bot is as simple as pasting the publish URL into the intent dialog you already have.
