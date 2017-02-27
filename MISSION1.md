@@ -12,7 +12,7 @@ Now run `npm init` to start your nodejs project. They'll fill in some fields for
 
 For reference, your command prompt should look something like this:
 
-![cmd setup](https://github.com/alyssaong1/Bot-Framework-HOL/blob/master/Images/Mission1/setupcmd.png) 
+![cmd setup](https://raw.githubusercontent.com/alyssaong1/Bot-Framework-HOL/master/Images/Mission1/setupcmd.PNG)
 
 If you check your bot's folder now, there should be a package.json file. [package.json](https://docs.npmjs.com/files/package.json) is like a description of the project, such as which packages our node project uses. It does other useful stuff too that we don't need for this tutorial. Now run the following 2 commands separately in the command line to install the botbuilder and restify packages (each of the packages may take a while to finish installing):
 
