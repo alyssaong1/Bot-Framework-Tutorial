@@ -245,11 +245,9 @@ Lastly, let's update package.json to indicate that our starting script is app.js
 ```js
 {
     ...
-    "main": "server.js",
     "scripts": {
-        "start": "node server.js"
-    },
-    "author": "Alyssa Ong with edits by Micheleen Harris",
+        "start": "node index.js"
+    }
     ...
 }
 ```
