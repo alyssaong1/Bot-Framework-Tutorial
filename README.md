@@ -14,7 +14,7 @@ Welcome to the Mars Challenge. The Mars Challenge is a series of hands-on labs w
 
 - **Mission 1:** Creating/setting up the bot
 - **Mission 2:** Getting news using Bing News API
-- **Mission 3:** Identifying objects using the Computer Vision API (DIY Challenge)
+- **Mission 3:** Identifying objects using the Computer Vision API
 - **LUIS:** Using LUIS
 - **Connect:** Deploying the bot to Azure and connecting to channels
 
