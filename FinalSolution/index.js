@@ -38,7 +38,8 @@ bot.dialog('/', intentDialog);
 
 intentDialog.matches(/\b(hi|hello|hey|howdy)\b/i, '/sayHi')
     .matches('GetNews', '/topNews')
-    .matches(/\b(analyze|analyse|image|caption)\b/i, '/analyseImage')
+    .matches('AnalyseImage', '/analyseImage')
+    .matches('SendEmail', '/sendEmail')
     .onDefault(builder.DialogAction.send("Sorry, I didn't understand what you said."));
 
 bot.dialog('/sayHi', function(session) {
@@ -131,6 +132,10 @@ bot.dialog('/analyseImage', [
     }
 ]);
 
+bot.dialog('/sendEmail', function(session){
+
+});
+
 // This function processes the results from the API call to category news and sends it as cards
 function sendTopNews(session, results, body){
     session.send("Top news in " + results.response.entity + ": ");
@@ -161,26 +166,3 @@ function sendTopNews(session, results, body){
         .attachments(cards);
     session.send(msg);
 }
-
-var extractText = function _extractText(bodyMessage) {
-
-    if (typeof bodyMessage.captions === "undefined") return "";
-
-    var caps = bodyMessage.captions[0];
-
-    if (typeof caps !== "undefined" &&
-        caps.length > 0) {
-
-        alltext = "";
-
-        // For all lines in image ocr result
-        //   grab the text in the words array
-        for (i = 0; i < caps.length; i++) {
-            var text = caps[i].text;
-            alltext += text;
-        }
-        return alltext;
-    }
-
-    return "Sorry, I can't find text captions :( !";
-};
