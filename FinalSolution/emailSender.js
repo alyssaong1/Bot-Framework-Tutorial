@@ -10,16 +10,16 @@ var transporter = nodemailer.createTransport({
     service: 'hotmail',
     auth: {
         user: 'marsbothol@outlook.com',
-        pass: 'marsmission97'
+        pass: 'passwordhere' //give password during event
     }
 });
 
-emailSender.sendEmail = function (callback)
+emailSender.sendEmail = function(recipientEmail, callback)
 {
     var mailOptions =
     {
         from: '"Mars Bot" <marsbothol@outlook.com>',
-        to: room.email,
+        to: recipientEmail,
         subject: 'Message from Mars',
         text: 'Hello from Mars Bot!' 
     }

@@ -1,9 +1,12 @@
-// Reference the packages we require so that we can use them in creating the bot
+// Modules
 var restify = require('restify');
 var builder = require('botbuilder');
 var rp = require('request-promise');
+var emailSender = require('./emailSender');
 
+// API Keys
 var BINGSEARCHKEY = '*****YOUR SUBSCRIPTION KEY GOES HERE*****';
+var CVKEY = '*****YOUR SUBSCRIPTION KEY GOES HERE*****';
 
 //=========================================================
 // Bot Setup
@@ -28,8 +31,7 @@ server.post('/api/messages', connector.listen());
 //=========================================================
 // Bots Dialogs
 //=========================================================
-
-var luisRecognizer = new builder.LuisRecognizer('Your publish URL here');
+var luisRecognizer = new builder.LuisRecognizer('Your LUIS URL here');
 
 var intentDialog = new builder.IntentDialog({recognizers: [luisRecognizer]});
 
@@ -104,7 +106,7 @@ bot.dialog('/analyseImage', [
                         method: 'POST', // thie API call is a post request
                         uri: url,
                         headers: {
-                            'Ocp-Apim-Subscription-Key': '**YOUR COMPUTER VISION KEY**',
+                            'Ocp-Apim-Subscription-Key': CVKEY,
                             'Content-Type': "application/json"
                         },
                         body: {
@@ -132,9 +134,26 @@ bot.dialog('/analyseImage', [
     }
 ]);
 
-bot.dialog('/sendEmail', function(session){
-
-});
+bot.dialog('/sendEmail', [
+    function(session){
+        session.send("I can send an email to your team member on Earth, what's his/her address?");
+        builder.Prompts.text(session, "Enter an image url to get the caption for it: ");
+    },
+    function(session, results)
+    {
+        var emailAddress = results.response;
+        emailSender.sendEmail(emailAddress, function(err){
+            if(!err)
+            {
+                session.send("I've successfully sent an email to your team.");
+            }
+            else
+            {
+                session.send("Error sending email");
+            }
+        })
+    }
+]);
 
 // This function processes the results from the API call to category news and sends it as cards
 function sendTopNews(session, results, body){
