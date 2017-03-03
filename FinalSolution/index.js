@@ -1,9 +1,12 @@
-// Reference the packages we require so that we can use them in creating the bot
+// Modules
 var restify = require('restify');
 var builder = require('botbuilder');
 var rp = require('request-promise');
+var emailSender = require('./emailSender');
 
+// API Keys
 var BINGSEARCHKEY = '*****YOUR SUBSCRIPTION KEY GOES HERE*****';
+var CVKEY = '*****YOUR SUBSCRIPTION KEY GOES HERE*****';
 
 //=========================================================
 // Bot Setup
@@ -28,8 +31,7 @@ server.post('/api/messages', connector.listen());
 //=========================================================
 // Bots Dialogs
 //=========================================================
-
-var luisRecognizer = new builder.LuisRecognizer('Your publish URL here');
+var luisRecognizer = new builder.LuisRecognizer('Your LUIS URL here');
 
 var intentDialog = new builder.IntentDialog({recognizers: [luisRecognizer]});
 
@@ -38,7 +40,8 @@ bot.dialog('/', intentDialog);
 
 intentDialog.matches(/\b(hi|hello|hey|howdy)\b/i, '/sayHi')
     .matches('GetNews', '/topNews')
-    .matches(/\b(analyze|analyse|image|caption)\b/i, '/analyseImage')
+    .matches('AnalyseImage', '/analyseImage')
+    .matches('SendEmail', '/sendEmail')
     .onDefault(builder.DialogAction.send("Sorry, I didn't understand what you said."));
 
 bot.dialog('/sayHi', function(session) {
@@ -103,7 +106,7 @@ bot.dialog('/analyseImage', [
                         method: 'POST', // thie API call is a post request
                         uri: url,
                         headers: {
-                            'Ocp-Apim-Subscription-Key': '**YOUR COMPUTER VISION KEY**',
+                            'Ocp-Apim-Subscription-Key': CVKEY,
                             'Content-Type': "application/json"
                         },
                         body: {
@@ -128,6 +131,27 @@ bot.dialog('/analyseImage', [
             // The user choses to quit
             session.endDialog("Ok. Mission Aborted.");
         }
+    }
+]);
+
+bot.dialog('/sendEmail', [
+    function(session){
+        session.send("I can send an email to your team member on Earth, what's his/her address?");
+        builder.Prompts.text(session, "Enter an image url to get the caption for it: ");
+    },
+    function(session, results)
+    {
+        var emailAddress = results.response;
+        emailSender.sendEmail(emailAddress, function(err){
+            if(!err)
+            {
+                session.send("I've successfully sent an email to your team.");
+            }
+            else
+            {
+                session.send("Error sending email");
+            }
+        })
     }
 ]);
 
@@ -161,26 +185,3 @@ function sendTopNews(session, results, body){
         .attachments(cards);
     session.send(msg);
 }
-
-var extractText = function _extractText(bodyMessage) {
-
-    if (typeof bodyMessage.captions === "undefined") return "";
-
-    var caps = bodyMessage.captions[0];
-
-    if (typeof caps !== "undefined" &&
-        caps.length > 0) {
-
-        alltext = "";
-
-        // For all lines in image ocr result
-        //   grab the text in the words array
-        for (i = 0; i < caps.length; i++) {
-            var text = caps[i].text;
-            alltext += text;
-        }
-        return alltext;
-    }
-
-    return "Sorry, I can't find text captions :( !";
-};

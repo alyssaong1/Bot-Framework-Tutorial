@@ -23,6 +23,8 @@
   "homepage": "https://github.com/michhar/Bot-Framework-HOL#readme",
   "dependencies": {
     "botbuilder": "^3.6.0",
+    "nodemailer": "^3.1.4",
+    "nodemailer-wellknown": "^0.2.2",
     "request-promise": "^4.1.1",
     "restify": "^4.3.0"
   }
