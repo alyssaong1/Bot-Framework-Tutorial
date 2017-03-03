@@ -40,14 +40,14 @@ The default intent is "None", which will be used whenever no intent is detected 
 4.  Type an example "utterance" like _Give me the news in Singapore_ and hit enter to add it.
 5.  Click on "Save" to save this example.
 
-![adding intent](images/adding_intent.png)
+![adding intent](Images/Luis/adding_intent.png)
 
 ### Making a new entity
 
 1.  Click on **Entities**
 2.  Click on **Add custom** and give it the name "Location", keeping the entity type "Simple"
 
-![adding entity](images/adding_entity.png)
+![adding entity](Images/Luis/adding_entity.png)
 
 ## More utterances
 In order for LUIS to perform better, you need to give it more examples of an intent.  Usually we need a minimum of 5 per entity per intent.
@@ -56,7 +56,7 @@ Let's add another utterance saying "Can I get the news in London".  Go ahead and
 
 1.  On the **Intents** page, click the intent name "GetNews" to open its details page, with **Utterances** as the current tab.
 2.  Label the utterance from above (_Give me the news in Singapore_) by clicking on "Singapore" and selecting "Location" from the drop-down.
-![labeling utterance](images/labeling_utterance.png)
+![labeling utterance](Images/Luis/labeling_utterance.png)
 3.  Add a new utterance like _Can I get the news in London_ and _I'd like the news report for New York City_
 4.  Label the locations as "Location" (you may need to highlight all words to move the bracket to expand over cities with multiple words)
 5.  Add a few more including off-the-wall ones like "I'm from Mars" to see how well it's getting the intent.
@@ -73,7 +73,7 @@ Let's add another utterance saying "Can I get the news in London".  Go ahead and
 5. Go the **Publish App** page of the app. Choose the key name/value that you just created in the drop down of keys at the top of the page under the **Essentials** segment.
 6. Click **Publish** to publish this as an http endpoint.
 
-![publishing as endpoint](images/publishing.png)
+![publishing as endpoint](Images/Luis/publishing.png)
 
 You are good to go!  The endpoint url is generated and you can click on it to test it in a browser, or, we recommend you use the our **Train & Test** page for a friendlier experience of testing your endpoint (Enable the endpoint checkbox on the test and train page).
 
