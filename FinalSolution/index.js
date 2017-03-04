@@ -2,7 +2,7 @@
 var restify = require('restify');
 var builder = require('botbuilder');
 var rp = require('request-promise');
-var emailSender = require('./emailSender');
+var emailSender = require('./emailSender.js');
 
 // API Keys
 var BINGSEARCHKEY = '*****YOUR SUBSCRIPTION KEY GOES HERE*****';
