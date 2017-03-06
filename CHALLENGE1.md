@@ -9,13 +9,11 @@ There are some things we need to implement in order to achieve this goal:
 ## NPM installation
 `nodemailer` is a useful npm that allows your NodeJS applications to send emails programatically.
 
-To use it, you have to install the npms into your application.
-
 Back in the command prompt (which should already be configured to your working directory), you can simply run these 2 commands to install the npms:
 
 ```shell
-npm install nodemailer
-npm install nodemailer-wellknown
+npm install nodemailer --save
+npm install nodemailer-wellknown --save
 ```
 
 ## Utilizing nodemailer
