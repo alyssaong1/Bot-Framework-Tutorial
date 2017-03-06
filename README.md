@@ -1,8 +1,8 @@
 #Microsoft Bot Framework Hands-On Lab: Mars Challenge
 
-Welcome to the Mars Challenge. The Mars Challenge is a series of hands-on labs with a twist to it... You will be briefed on your missions later on in the lab. 
+This is a hands-on-lab with the objective of building a bot that has multiple functions and deploying it to Azure for communication.
 
-**Please do NOT click into any other pages in this repo until told to do so!**
+We will be using the Microsoft Bot Framework NodeJS SDK to build the bot web service and utilize some NPMs and open source SDKs along with Cognitive Services APIs.
 
 ###Prerequisites (try to do before the lab starts)
 
@@ -16,8 +16,8 @@ Welcome to the Mars Challenge. The Mars Challenge is a series of hands-on labs w
 - **Mission 2:** Getting news using Bing News API
 - **Mission 3:** Identifying objects using the Computer Vision API
 - **Challenge 1:** Sending emails
+- **Challenge 2:** Deploying the bot to Azure and connecting to channels
 - **LUIS:** Using LUIS
-- **Connect:** Deploying the bot to Azure and connecting to channels
 
 ###Additional reference links
 

@@ -1,5 +1,4 @@
-#BONUS MISSION: Connecting the bot to messaging channels
-
+#Challenge 2: Deploying to Azure and connecting to messaging channels
 ## Introuction
 
 In this mission, we will deploy your bot that uses NodeJS and the Microsoft Bot Framework to Azure. 
