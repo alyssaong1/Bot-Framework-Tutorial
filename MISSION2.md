@@ -1,18 +1,15 @@
-# Building our Bot
+# Mission 2: Building the bot and getting news
 
-The bot we made in Mission 1 currently doesn't do much. In this part, we'll be building out the logic of our bot so it actually starts being useful and gives us news. 
+The bot we made in Mission 1 currently doesn't do much. In this part, we'll be building out the logic of our bot and enabling it to retrieve news from Earth, so that we can keep up to date with current affairs.
 
-## Mission 2: Get News
-
-### Setting up LUIS
+## Natural Language
 
 Before starting on this tutorial, we first need to make our bot understand natural language. Follow this [tutorial](LUIS.MD) to make your bot work with LUIS.
 
-### After setting up LUIS
+## Mission
 
 We're moving on to more complex stuff now. Let's try fetching news based on category so we can stay updated with civilisation.
 
-**NOTE: We will be asking you questions at the end of this so do not just copy and paste without understanding what is going on.**
 
 **So what are we using to get the news?**
 
@@ -23,11 +20,7 @@ We're gonna go to CNN and copy paste the headlines manually into our bot. Just k
 - [Market Codes for Bing](https://msdn.microsoft.com/en-us/library/dn783426.aspx)
 - [Categories for Bing News by market](https://msdn.microsoft.com/en-us/library/dn760793(v=bsynd.50).aspx#categoriesbymarket)
 
-To start using the Bing News API, we will need a subscription key. We can get one in a similar manner as how we got our LUIS subscription key. Go to the [Azure portal](https://portal.azure.com) and log in. Then click + New and search for Cognitive Services. Create a new Cognitive Services API instance, and make sure you select Bing Search APIs in the API type field. 
-
-![SearchApi](Images/Mission2/searchapi.PNG)
-
-Now that you have your subscription key (you can use either key 1 or key 2, it doesn't matter), you can go to the [API testing console](https://dev.cognitive.microsoft.com/docs/services/56b43f72cf5ff8098cef380a/operations/56f02400dbe2d91900c68553) and play around with the API if you'd like. Try sending some requests and see the responses you get. [Here](https://msdn.microsoft.com/en-us/library/dn760793(v=bsynd.50).aspx#categoriesbymarket) are all the possible categories for Category News by the way. 
+To start using the Bing News API, we will need a subscription key. A subscription key has been provided in this tutorial at the README.
 
 **Ok cool, now how do we link the news to the bot?**
 

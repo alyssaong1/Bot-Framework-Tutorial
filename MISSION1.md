@@ -1,8 +1,14 @@
-#Setting up the bot with Microsoft Bot Framework
+# Mission 1: Setting up the bot with Microsoft Bot Framework
+
+## Introduction
+
+First, we need to lay out the foundation for our bot, which will be used to access all our tools.
+
+## Mission
 
 This part has been largely based off the setup documented by Microsoft [here](https://docs.botframework.com/en-us/node/builder/overview/#navtitle), but I've added a bit more detail. 
 
-####First of all, go and install these:
+#### First of all, go and install these:
 - [NodeJS](https://nodejs.org/en/). After you've installed this, open your command line and run `npm install npm -g`. This updates Node's Package Manager (npm) to the latest version.
 - [Visual Studio Code](https://code.visualstudio.com/) (or any other code editor of your choice)
 
