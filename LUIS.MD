@@ -11,7 +11,9 @@ For example, let's say a user says _What's the news in **Paris** on **Thursday**
 ## Activating LUIS
 First, login to [LUIS.AI](https://www.luis.ai) using your personal Microsoft account or work/school account. 
 
-Now, we will set up our keys.  There are two key types that are summarized as follows:
+Go to the `My Keys` tab. 
+
+There are 2 types of keys:
 
 **Programmatic API Key**: Created automatically per LUIS account and you don't have to buy it. It enables you to author and edit your application using LUIS programmatic APIs.
 

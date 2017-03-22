@@ -20,7 +20,12 @@ We're gonna go to CNN and copy paste the headlines manually into our bot. Just k
 - [Market Codes for Bing](https://msdn.microsoft.com/en-us/library/dn783426.aspx)
 - [Categories for Bing News by market](https://msdn.microsoft.com/en-us/library/dn760793(v=bsynd.50).aspx#categoriesbymarket)
 
-To start using the Bing News API, we will need a subscription key. A subscription key has been provided in this tutorial at the README.
+To start using the Bing News API, we will need a subscription key. We can get one in a similar manner as how we got our LUIS subscription key. Go to the [Azure portal](https://portal.azure.com) and log in. Then click + New and search for Cognitive Services. Create a new Cognitive Services API instance, and make sure you select Bing Search APIs in the API type field. 
+
+![SearchApi](Images/Mission2/searchapi.PNG)
+
+Now that you have your subscription key (you can use either key 1 or key 2, it doesn't matter), you can go to the [API testing console](https://dev.cognitive.microsoft.com/docs/services/56b43f72cf5ff8098cef380a/operations/56f02400dbe2d91900c68553) and play around with the API if you'd like. Try sending some requests and see the responses you get. [Here](https://msdn.microsoft.com/en-us/library/dn760793(v=bsynd.50).aspx#categoriesbymarket) are all the possible categories for Category News by the way. 
+
 
 **Ok cool, now how do we link the news to the bot?**
 
