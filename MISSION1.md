@@ -33,7 +33,7 @@ Open up Visual Studio Code. Go to File > Open Folder... and select your bot's fo
 
 The node_modules folder contains all the packages and dependencies needed in our project. If you look into the folder, you'll see more than just the botbuilder and restify packages we installed - that's because they require other packages to work as well.
 
-Right click the left panel area and create a new file. Name it `index.js`. **Make sure the new file has not been created in the node_modules folder!**
+Right click the left panel area and create a new file. Name it `index.js`. **Make sure the new file has not been created in the node_modules folder! It should be created at the root of your bot's folder.**
 
 Now copy and paste the following snippet of code into `index.js`:
 
