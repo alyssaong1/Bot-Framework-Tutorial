@@ -10,14 +10,14 @@ We will be using the Microsoft Bot Framework NodeJS SDK to build the bot web ser
 - Install [Visual Studio Code](https://code.visualstudio.com/) (or any other code editor of your choice)
 - Install [Bot Framework emulator](https://emulator.botframework.com)
 
-### Lab content
+### Lab content (do in order)
 
 - **Mission 1:** Creating/setting up the bot
+- **LUIS:** Getting your bot to understand natural language
 - **Mission 2:** Getting news using Bing News API
 - **Mission 3:** Identifying objects using the Computer Vision API
 - **Challenge 1:** Sending emails
 - **Challenge 2:** Deploying the bot to Azure and connecting to channels
-- **LUIS:** Using LUIS
 
 ### Additional reference links
 
